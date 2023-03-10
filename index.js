@@ -17,20 +17,19 @@ const addUser  =  (userId,socketId) => {
     }
 };
 
-
-
-
-
-
-
 const removeUser = (socketId)=>{
     users = users.filter((user)=>user.socketId !== socketId);
 }
 
-const getUser = (userId)=>{
-    return users.find((user)=>user.userId === userId);
-}
-
+const getUser = (userId) => {
+    try {
+        const user = users.find((user) => user.userId === userId);
+        if (!user) throw new Error("User not found");
+        return user;
+    } catch (error) {
+        console.log(error.message);
+    }
+};
 
 io.on("connection",(socket)=>{
     //when connect
@@ -45,7 +44,6 @@ io.on("connection",(socket)=>{
     //send and get message
     socket.on('sendMessage',({senderId,recieverId,text})=>{
         try {
-            
             const user = getUser(recieverId);
             io.to(user.socketId).emit("getMessage",{
                 senderId,
