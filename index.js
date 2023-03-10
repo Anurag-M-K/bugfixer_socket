@@ -1,6 +1,7 @@
 const io = require('socket.io')(8080,{
     cors:{
-        origin:"http://localhost:5173"
+        // origin:"http://localhost:5173"
+        origin:"https://timely-macaron-44c032.netlify.app"
     }
 });
 
