@@ -6,7 +6,7 @@ const io = require('socket.io')(8080,{
 });
 
 
-
+//store users when connected
 let users = []
 
 const addUser  =  (userId,socketId) => {
@@ -19,10 +19,12 @@ const addUser  =  (userId,socketId) => {
     }
 };
 
+//remove user from users array , when user disconnect
 const removeUser = (socketId)=>{
     users = users.filter((user)=>user.socketId !== socketId);
 }
 
+//get spesific user details from users array
 const getUser = (userId) => {
     try {
         const user = users.find((user) => user.userId === userId);
